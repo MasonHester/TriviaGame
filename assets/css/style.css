@@ -1,0 +1,42 @@
+/* Color Themes */
+
+/* Prussian Blue = 0B3C5D */
+/* Sky Blue = 328CC1 */
+/* Gold Leaf = D9B310 */
+/* Ivory Black = 1D2731 */
+
+/* Navy Blue = 0F1626 */
+/* Leather = AB987A */
+/* Coral = FF533D */
+/* Eggshell = F5F5F5*/
+
+body {
+    background: #FF533D;
+    color: #F5F5F5;
+    text-align: center;
+    cursor: default;
+}
+
+.mainDivBackground {
+    background: #0F1626;
+}
+
+.mainDivBorder {
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-color: #AB987A;
+    border-left: solid;
+    border-right: solid;
+}
+
+p.displaySmallButton {
+    padding: 5px 10px;
+}
+
+p.displaySmallButton:hover {
+    background: #FF533D;
+}
+
+p.displayButton {
+    cursor: pointer;    
+}
