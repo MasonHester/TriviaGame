@@ -11,7 +11,7 @@ $(document).ready(function() {
 
     //Holding Intervals
 
-    var countdown;
+    var timeUpCountdown;
     var timerCountdown;
 
     //Array with all data
@@ -138,9 +138,19 @@ $(document).ready(function() {
 
     var $dContentCol = $(".displayContentCol");
 
+    var $dRow = $("<div class='row'>");
+
+    var $dTimerLeftCol = $("<div class='col-xs-3 col-md-5'>");
+
+    var $dTimerRightCol = $("<div class='col-xs-3 col-md-5'>");
+
+    var $dTimerMainCol = $("<div class='col-xs-6 col-md-2 bold noSelect'>");
+
+    var $dTimer = $("<p class='displayTimer'>");
+
     var $dStartButton = $(".displayStartButton");
 
-    var $dQuestion = $("<p class='displayQuestion'>");
+    var $dQuestion = $("<p class='displayQuestion bold'>");
 
 
     //====================================================
@@ -163,12 +173,35 @@ $(document).ready(function() {
     }
 
     function displayTrivia() {
+        userOnQuestion++;
+        console.log("User on question: " + userOnQuestion);
         $dContentCol.empty();
+        displayTimer();
         displayQuestion();
+        displayAnswers();
+        timeUpCountdown = setTimeout(timeUp, 30 * 1000);
+    }
+
+    function displayTimer() {
+        $dContentCol.append($dRow);
+        $dRow.append($dTimerLeftCol);
+        $dRow.append($dTimerMainCol);
+        $dTimerMainCol.append($dTimer);
+        $dTimer.text(30);
+        $dRow.append($dTimerRightCol);
+        timer = 30;
+        timerCountdown = setInterval(startCountdown, 1000);
+    }
+
+    function startCountdown() {
+        timer--;
+        $dTimer.text(timer);
     }
 
     function displayQuestion () {
         $dContentCol.append($dQuestion);
+        $dQuestion.text(triviaArray[userOnQuestion - 1].question);
+        console.log(triviaArray[userOnQuestion - 1].question);
     }
 
 

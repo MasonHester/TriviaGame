@@ -52,11 +52,8 @@ body {
     cursor: default;
 }
 
-.displayFirstRow {
-    margin-top: 20px
-}
-
 .contentCol {
+    padding: 20px 0px;
     background: #192231;
     border: solid;
     border-color: #F5F5F5;
@@ -75,6 +72,7 @@ body {
 p.displayQuestion {
     color: #1D2731;
     background: #98878F;
+    margin: 20px 20px;
     padding: 20px 30px;
     border: solid;
     border-color: #F5F5F5;
@@ -96,6 +94,8 @@ p.displayQuestion {
 
 p.displayStartButton {
     padding: 30px 20px;
+    margin: 0px;
+    font-size: 34px;
 }
 
 p.displayAnswerButton {
