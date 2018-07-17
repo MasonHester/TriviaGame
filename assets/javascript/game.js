@@ -1,193 +1,260 @@
 $(document).ready(function() {
 
+    //Global Variables
+
     var timer = 30;
-    var userQuestion = 0;
-    var gameOver = true;
+    var userOnQuestion = 0;
     var correctGuesses = 0;
+    var timeOuts = 0;
+    var userAnswer = 0;
+
+    //Holding Intervals
 
     var countdown;
     var timerCountdown;
 
-    var images = [
-        "./assets/images/1",
-        "./assets/images/2",
-        "./assets/images/3",
-        "./assets/images/4",
-        "./assets/images/5",
-        "./assets/images/6",
-        "./assets/images/7",
-        "./assets/images/8",
-        "./assets/images/9",
-        "./assets/images/10",
-    ]
-
-    var correct = [
-        "cf1",
-        "cf2",
-        "cf3",
-        "cf4",
-        "cf5",
-        "cf6",
-        "cf7",
-        "cf9",
-        "cf8",
-        "cf10",
-    ]
-
-    var incorrect = [
-        "if1",
-        "if2",
-        "if3",
-        "if4",
-        "if5",
-        "if6",
-        "if7",
-        "if9",
-        "if8",
-        "if10",
-    ]
+    //Array with all data
 
     var questions = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
+        {
+            id: 1,
+            question: "Which fictional city is the home of Batman?",
+            possibleAnswers: ["Arcane City", "New York City", "Gotham City", "Gothic City"],
+            correctAnswer: "Gotham City",
+            tidbit: "cf1",
+            explanation: "Batman fights crime in Gotham City.",
+            image: "./assets/images/questionOneImage.jpg"
+        },
+
+        {
+            id: 2,
+            question: "In which sport would you perform the Fosbury Flop?",
+            possibleAnswers: ["Soccer", "Frisbee Golf", "Golf", "The High Jump"],
+            correctAnswer: "The High Jump",
+            tidbit: "cf2",
+            explanation: "The Fosbury Flop is performed in The High Jump.",
+            image: "./assets/images/questionTwoImage.jpg"
+        },
+
+        {
+            id: 3,
+            question: "Spinach is high in which mineral?",
+            possibleAnswers: ["Gold", "Iron", "Calcium", "Bronze"],
+            correctAnswer: "Iron",
+            tidbit: "cf3",
+            explanation: "Spinach is high in Iron.",
+            image: "./assets/images/questionThreeImage.jpg"
+        },
+
+        {
+            id: 4,
+            question: "What is a Geiger Counter used to detect?",
+            possibleAnswers: ["Radiation", "People named Geiger", "Wind", "Earthquakes"],
+            correctAnswer: "Radiation",
+            tidbit: "cf4",
+            explanation: "A Geiger Counter is used to detect Radiation.",
+            image: "./assets/images/questionFourImage.jpg"
+        },
+
+        {
+            id: 5,
+            question: "What type of dog has breeds called Scottish, Welsh, and Irish?",
+            possibleAnswers: ["Pitbull", "Terrier", "Pug", "Labrador"],
+            correctAnswer: "Terrier",
+            tidbit: "cf5",
+            explanation: "Terriers have breed called Scottish, Welsh, and Irish.",
+            image: "./assets/images/questionFiveImage.jpg"
+        },
+
+        {
+            id: 6,
+            question: "Babe Ruth is associated with which sport?",
+            possibleAnswers: ["The High jump", "Basketball", "Baseball", "The 100M Dash"],
+            correctAnswer: "Baseball",
+            tidbit: "Babe Ruth was a famous Baseball player.",
+            explanation: "cf6",
+            image: "./assets/images/questionSixImage.jpg"
+        },
+
+        {
+            id: 7,
+            question: "In the film Babe, what type of animal was Babe?",
+            possibleAnswers: ["Pig", "Cow", "Party animal", "Turkey"],
+            correctAnswer: "Pig",
+            tidbit: "cf7",
+            explanation: "Babe was a pig.",
+            image: "./assets/images/questionSevenImage.jpg"
+        },
+
+        {
+            id: 8,
+            question: "What was Mohammed Ali's birth name?",
+            possibleAnswers: ["Cassius Clay", "Mark Levetin", "Roxana Milea", "Scott Byers"],
+            correctAnswer: "Cassius Clay",
+            tidbit: "cf8",
+            explanation: "Mohammed Ali's original birth name was Cassius Clay.",
+            image: "./assets/images/questionEightImage.jpg"
+        },
+
+        {
+            id: 9,
+            question: "What Roman Emperor supposedly fiddled while Rome burned?",
+            possibleAnswers: ["Hero", "Nero", "Zero", "Steve"],
+            correctAnswer: "Zero",
+            tidbit: "cf9",
+            explanation: "Nero played the flute while he watched Rome burn.",
+            image: "./assets/images/questionNineImage.jpg"
+        },
+
+        {
+            id: 10,
+            question: "Which crime-fighting cartoon dog has the initials S.D. on his collar",
+            possibleAnswers: ["Snoop Dog", "Salvador Dali", "Super Dog", "Scooby Doo"],
+            correctAnswer: "Scooby Doo",
+            tidbit: "cf10",
+            explanation: "Scooby Doo is a cartoon crime-fighting dog with S.D. on his collar.",
+            image: "./assets/images/questionTenImage.jpg"
+        }
     ]
 
-    var answersOne = [
-        "a1x",
-        "a2x",
-        "a3x",
-        "a4o",
-        "a5x",
-        "a6x",
-        "a7o",
-        "a8o",
-        "a9x",
-        "a10x",
-    ]
+    //====================================================
 
-    var answersTwo = [
-        "b1x",
-        "b2x",
-        "b3o",
-        "b4x",
-        "b5o",
-        "b6x",
-        "b7x",
-        "b8x",
-        "b9o",
-        "b10x",
-    ]
+    //Establishing Functions
 
-    var answersThree = [
-        "c1o",
-        "c2x",
-        "c3x",
-        "c4x",
-        "c5x",
-        "c6o",
-        "c7x",
-        "c8x",
-        "c9x",
-        "c10x",
-    ]
-
-    var answersFour = [
-        "d1x",
-        "d2o",
-        "d3x",
-        "d4x",
-        "d5x",
-        "d6x",
-        "d7x",
-        "d8x",
-        "d9x",
-        "d10o",
-    ]
-
-    //==============================================================
-
+    //Starts game, calls Question Loop
     
     function gameStart() {
+        userOnQuestion = 0;
+        correctGuesses = 0;
+        timeOuts = 0;
+        userAnswer = 0;
         console.log("Game Start");
-        gameOver = false;
         questionLoop();
     }
 
+    //Bulk of code inside Question Loop
     
     function questionLoop() {
-        console.log("Question Loop called| user question: " + userQuestion)
+        //Increments User On Question
+        userOnQuestion++;
+        console.log("Question Loop called| user question: " + userOnQuestion);
 
-        $("#displayTimer").html("<p class='bold'>30</p>")
+        $("#displayTimer").html("<p class='bold'>30</p>");
 
+        //Times out after 30 seconds and calls Time Up
         timerCountdown = setTimeout(timeUp, 30000);
 
-        if(userQuestion < 10) {
+        //If there is still a question to display it displays it with the answers
+        //Displays a timer counting down
+        if(userOnQuestion < questions.length + 1) {
             timer = 30;
-            countdown = setInterval(decrement, 1000);
-            console.log("Next question called| Question: " +questions[userQuestion]);
-            $("#displayQuestion").html("<p class='displayQuestion bold'>" + questions[userQuestion] + "</p>");
-            $("#displayAnswerOne").html("<p id='answerOneButton' class='displayAnswerButton displayButton noSelect bold'>" + answersOne[userQuestion] + "</p>");
-            $("#displayAnswerTwo").html("<p id='answerTwoButton' class='displayAnswerButton displayButton noSelect bold'>" + answersTwo[userQuestion] + "</p>");
-            $("#displayAnswerThree").html("<p id='answerThreeButton' class='displayAnswerButton displayButton noSelect bold'>" + answersThree[userQuestion] + "</p>");
-            $("#displayAnswerFour").html("<p id='answerFourButton' class='displayAnswerButton displayButton noSelect bold'>" + answersFour[userQuestion] + "<p>");
+            countdown = setInterval(startCountdown, 1000);
+            console.log("Next question called| Question: " + questions[userOnQuestion]);
+            $("#displayQuestion").html("<p class='displayQuestion bold'>" + questions[userOnQuestion - 1].question + "</p>");
+
+            //Displays all the answers            
+            for(i = 0; i < questions[userOnQuestion - 1].possibleAnswers.length; i++) {
+                $("#displayAnswer" + (i + 1)).html("<p id='answer" + (i + 1) + "Button' class='displayAnswerButton displayButton noSelect bold'>" + questions[userOnQuestion - 1].possibleAnswers[i] + "</p>");
+                console.log("Button " + (i + 1) + " created");
+            };
         }
 
         else {
+            console.log("gameEnd called");
             gameEnd();
         }
 
-        $("#answerOneButton").on("click", answerCheckOne);
-        $("#answerTwoButton").on("click", answerCheckTwo);
-        $("#answerThreeButton").on("click", answerCheckThree);
-        $("#answerFourButton").on("click", answerCheckFour);
+        $("#answer1Button").on("click", userInput1);
+        $("#answer2Button").on("click", userInput2);
+        $("#answer3Button").on("click", userInput3);
+        $("#answer4Button").on("click", userInput4);
         
     }
 
-    function decrement() {
+    function userInput1() {
+        console.log("User clicked Button 1");
+        userAnswer = questions[userOnQuestion - 1].possibleAnswers[0]
+        answerCheck()
+    }
+    
+    function userInput2() {
+        console.log("User clicked Button 2");
+        userAnswer = questions[userOnQuestion - 1].possibleAnswers[1]
+        answerCheck()
+    }
+
+    function userInput3() {
+        console.log("User clicked Button 3");
+        userAnswer = questions[userOnQuestion - 1].possibleAnswers[2]
+        answerCheck()
+    }
+
+    function userInput4() {
+        console.log("User clicked Button 4");
+        userAnswer = questions[userOnQuestion - 1].possibleAnswers[3]
+        answerCheck()
+    }
+
+    function answerCheck() {
+        console.log("checking answer");
+        clearTimeout(timerCountdown);
+        clearInterval(countdown);
+
+        if(userAnswer === questions[userOnQuestion - 1].correctAnswer) {
+            correctAnswer();
+        }
+
+        else {
+            incorrectAnswer();
+        }
+    }
+
+    function startCountdown() {
         timer--;
         console.log("second passed");
         $("#displayTimer").html("<p class='noSelect bold'>" + timer + "</p>");
     }
 
     function correctAnswer() {
-        $("#displayQuestion").html("<p class'bold'>Correct!</p>");
-        $("#displayAnswerOne").html("<p class'bold'>" + correct[userQuestion] + "</p>");
-        $("#displayAnswerTwo").html("<img src='" + images[userQuestion] + "'>");
-        $("#displayAnswerThree").html("<p></p>");
-        $("#displayAnswerFour").html("<p></p>");
-        userQuestion++;
+        console.log("Correct answer")
+        $("#displayQuestion").html("<p class='bold'>Correct!</p>");
+        $("#displayAnswer1").html("<p class='bold'>" + questions[userOnQuestion - 1].tidbit + "</p>");
+        $("#displayAnswer2").html("<img class='displayImage' src='" + questions[userOnQuestion - 1].image + "'>");
+        $("#displayAnswer3").html("<p></p>");
+        $("#displayAnswer4").html("<p></p>");
         correctGuesses++;
         setTimeout(questionLoop, 2000);
     }
 
     function incorrectAnswer() {
-        $("#displayQuestion").html("<p class'bold'>Incorrect.</p>");
-        $("#displayAnswerOne").html("<p class'bold'>" + incorrect[userQuestion] + "</p>");
-        $("#displayAnswerTwo").html("<img src='" + images[userQuestion] + "'>");
-        $("#displayAnswerThree").html("<p></p>");
-        $("#displayAnswerFour").html("<p></p>");
-        userQuestion++;
+        console.log("Incorrect answer")
+        $("#displayQuestion").html("<p class='bold'>Incorrect.</p>");
+        $("#displayAnswer1").html("<p class='bold'>" + questions[userOnQuestion - 1].explanation + "</p>");
+        $("#displayAnswer2").html("<img class='displayImage' src='" + questions[userOnQuestion - 1].image + "'>");
+        $("#displayAnswer3").html("<p></p>");
+        $("#displayAnswer4").html("<p></p>");
         setTimeout(questionLoop, 2000);
     }
 
-    function timeUp() {
-        clearInterval(countdown);
+    // function marcTimer(numberSeconds, nextPage) {
+    //     setTimeout(doAThing, 
+    //         amount)
+    // }
 
-        if(userQuestion < 10) {
-            $("#displayQuestion").html("<p class'bold'>Times up!</p>");
-            $("#displayAnswerOne").html("<p class'bold'>" + incorrect[userQuestion] + "</p>");
-            $("#displayAnswerTwo").html("<img src='" + images[userQuestion] + "'>");
-            $("#displayAnswerThree").html("<p></p>");
-            $("#displayAnswerFour").html("<p></p>");
-            userQuestion++;
+    // when on a page requiring user input: marcTimer(30, answer.html)
+    // when on a page showing answer: marcTimer(3, nextquestion.html)
+
+    function timeUp() {
+        $("#displayTimer").html("<p class='bold'>0</p>")
+        clearInterval(countdown);
+        timeOuts++;
+
+        if(userOnQuestion < 11) {
+            $("#displayQuestion").html("<p class='bold'>Times up!</p>");
+            $("#displayAnswer1").html("<p class='bold'>" + questions[userOnQuestion - 1].explanation + "</p>");
+            $("#displayAnswer2").html("<img class='displayImage' src='" + questions[userOnQuestion - 1].image + "'>");
+            $("#displayAnswer3").html("<p></p>");
+            $("#displayAnswer4").html("<p></p>");
             setTimeout(questionLoop, 2000);
         }
         
@@ -195,221 +262,27 @@ $(document).ready(function() {
             gameEnd();
         }
     }
-
-    function answerCheckOne() {
-        clearTimeout(timerCountdown);
-        clearInterval(countdown);
         
-        if(userQuestion < 5) {
-            if(userQuestion === 0) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 1) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 2) {
-                incorrectAnswer();
-            }
-            
-            else if(userQuestion === 3) {
-                correctAnswer();
-            }
-            
-            else {
-                incorrectAnswer();
-            }
-        }
-
-        else {
-            if(userQuestion === 5) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 6) {
-                correctAnswer();
-            }
-
-            else if(userQuestion === 7) {
-                correctAnswer();
-            }
-            
-            else if(userQuestion === 8) {
-                incorrectAnswer();
-            }
-            
-            else {
-                incorrectAnswer();
-            }
-        }
-    }
-        
-    function answerCheckTwo() {
-        clearTimeout(timerCountdown);
-        clearInterval(countdown);
-
-        if(userQuestion < 5) {
-            if(userQuestion === 0) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 1) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 2) {
-                correctAnswer();
-            }
-            
-            else if(userQuestion === 3) {
-                incorrectAnswer();
-            }
-            
-            else {
-                correctAnswer();
-            }
-        }
-
-        else {
-            if(userQuestion === 5) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 6) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 7) {
-                incorrectAnswer();
-            }
-            
-            else if(userQuestion === 8) {
-                correctAnswer();
-            }
-            
-            else {
-                incorrectAnswer();
-            }
-        }
-    }
-        
-    function answerCheckThree() {
-        clearTimeout(timerCountdown);
-        clearInterval(countdown);
-
-        if(userQuestion < 5) {
-            if(userQuestion === 0) {
-                correctAnswer();
-            }
-
-            else if(userQuestion === 1) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 2) {
-                incorrectAnswer();
-            }
-            
-            else if(userQuestion === 3) {
-                incorrectAnswer();
-            }
-            
-            else {
-                incorrectAnswer();
-            }
-        }
-        
-
-        else {
-            if(userQuestion === 5) {
-                correctAnswer();
-            }
-
-            else if(userQuestion === 6) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 7) {
-                incorrectAnswer();
-            }
-            
-            else if(userQuestion === 8) {
-                incorrectAnswer();
-            }
-            
-            else {
-                incorrectAnswer();
-            }
-        }
-    }
-        
-    function answerCheckFour() {
-        clearTimeout(timerCountdown);
-        clearInterval(countdown);
-
-        if(userQuestion < 5) {
-            if(userQuestion === 0) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 1) {
-                correctAnswer();
-            }
-
-            else if(userQuestion === 2) {
-                incorrectAnswer();
-            }
-            
-            else if(userQuestion === 3) {
-                incorrectAnswer();
-            }
-            
-            else {
-                incorrectAnswer();
-            }
-        }
-
-        else {
-            if(userQuestion === 5) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 6) {
-                incorrectAnswer();
-            }
-
-            else if(userQuestion === 7) {
-                incorrectAnswer();
-            }
-            
-            else if(userQuestion === 8) {
-                incorrectAnswer();
-            }
-            
-            else {
-                correctAnswer();
-            }
-        }
-    }
-
     function gameEnd() {
-        $("#displayQuestion").html("<p class'bold'>Game over.</p>");
-        $("#displayAnswerOne").html("<p class'bold'>You answered " + correctGuesses + " questions correctly!</p>");
-        
-        if(correctGuesses < 8) {
-            $("#displayAnswerTwo").html("<img src='./assets/images/good'>");
+        clearTimeout(timerCountdown);
+        clearInterval(countdown);
+
+        $("#displayQuestion").html("<p class='bold'>Game over.</p>");
+        $("#displayAnswer1").html("<p class='bold'>You answered " + correctGuesses + " questions correctly!</p>");
+        $("#displayAnswer2").html("<p class='bold'>You timed out on " + timeOuts + " questions.</p>");
+
+        if(correctGuesses > 8) {
+            $("#displayAnswer3").html("<img class='displayImage finalImage' src='./assets/images/goodScore.jpg'>");
         }
 
         else {
-            $("#displayAnswerTwo").html("<img src='./assets/images/bad'>");
+            $("#displayAnswer3").html("<img class='displayImage finalImage' src='./assets/images/badScore.jpg'>");
         }
 
-        $("#displayAnswerThree").html("<p></p>");
-        $("#displayAnswerFour").html("<p></p>");
+        $("#displayAnswer4").html("<p class='displayStartButton displayButton bold noSelect'>Try again?</p>");
     }
 
     //==============================================================
 
-    $("#gameStartButton").on("click", gameStart);
+    $("body").on("click", ".displayStartButton", gameStart);
 });

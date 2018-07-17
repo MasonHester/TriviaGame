@@ -25,7 +25,7 @@
 /* Cool Grey = CDCDCD */
 
 body {
-    background: #98878F;
+    background: #494E6B;
     color: #F5F5F5;
     text-align: center;
     cursor: default;
@@ -58,6 +58,16 @@ body {
     margin: 100px 0px 0px 0px;
 }
 
+.displayImage {
+    border: solid;
+    border-color: #F5F5F5;
+    width: 300px;
+}
+
+.finalImage {
+    margin: 0px 0px 20px 0px;
+}
+
 p.displayStartButton {
     padding: 30px 20px;
 }
@@ -67,8 +77,11 @@ p.displayStartButton:hover {
 }
 
 p.displayQuestion {
-    background: #494E6B;
+    color: #1D2731;
+    background: #98878F;
     padding: 20px 30px;
+    border: solid;
+    border-color: #F5F5F5;
 }
 
 p.displayAnswerButton {
