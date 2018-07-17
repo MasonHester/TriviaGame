@@ -24,16 +24,9 @@
 
 /* Cool Grey = CDCDCD */
 
-body {
-    background: #494E6B;
-    color: #F5F5F5;
-    text-align: center;
-    cursor: default;
-}
+/* =============================== */
 
-.bold {
-    font-weight: bold;
-}
+/* Causes text to be unhighlightable */
 
 .noSelect {
     -webkit-touch-callout: none; 
@@ -41,22 +34,53 @@ body {
     -khtml-user-select: none; 
     -moz-user-select: none; 
     -ms-user-select: none; 
-    user-select: none;
-                                
-  }
-
-.mainDivBackground {
-    background: #192231;
+    user-select: none;                                
 }
 
-.mainDivBorder {
+/* Allows bold text */
+
+.bold {
+    font-weight: bold;
+}
+
+/* Element modifiers */
+
+body {
+    background: #494E6B;
+    color: #F5F5F5;
+    text-align: center;
+    cursor: default;
+}
+
+.displayFirstRow {
+    margin-top: 20px
+}
+
+.contentCol {
+    background: #192231;
     border: solid;
     border-color: #F5F5F5;
 }
 
-.mainRow {
-    margin: 100px 0px 0px 0px;
+.titleContainer {
+    margin: 100px 0px 20px 0px;
 }
+
+.mainContainer {
+    margin: 10px 0px 20px 0px;
+}
+
+/* Static text modifiers */
+
+p.displayQuestion {
+    color: #1D2731;
+    background: #98878F;
+    padding: 20px 30px;
+    border: solid;
+    border-color: #F5F5F5;
+}
+
+/* Image modifiers */
 
 .displayImage {
     border: solid;
@@ -68,41 +92,15 @@ body {
     margin: 0px 0px 20px 0px;
 }
 
+/* Buttons */
+
 p.displayStartButton {
     padding: 30px 20px;
 }
 
-p.displayStartButton:hover {
-    background: #675682;
-}
-
-p.displayQuestion {
-    color: #1D2731;
-    background: #98878F;
-    padding: 20px 30px;
-    border: solid;
-    border-color: #F5F5F5;
-}
-
 p.displayAnswerButton {
     padding: 5px 10px;
-    background: #985E6D;
-    color: #1D2731;
 }
-
-p.displayAnswerButton:hover {
-    background: #675682;
-}
-/* 
-p.displaySmallButton {
-    padding: 5px 10px;
-    background: #985E6D;
-    color: #1D2731;
-}
-
-p.displaySmallButton:hover {
-    background: #675682;
-} */
 
 p.displayButton {
     cursor: pointer;
@@ -110,4 +108,8 @@ p.displayButton {
     border-color:#0B3C5D;
     background: #985E6D;
     color: #1D2731;
+}
+
+p.displayButton:hover {
+    background: #675682;
 }
