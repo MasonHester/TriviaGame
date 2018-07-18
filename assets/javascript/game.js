@@ -154,9 +154,12 @@ $(document).ready(function() {
     var $dTimer = $("<p class='displayTimer bold noSelect'>");
 
     //Question
-    var $dQuestionCol = $(".displayQuestionCol")
+    var $dQuestionCol = $(".displayQuestionCol");
 
     var $dQuestion = $("<p class='displayQuestion bold'>");
+
+    //Answer
+    var $dAnswerCol = $(".displayAnswerCol");
 
 
     //====================================================
@@ -182,15 +185,22 @@ $(document).ready(function() {
     function displayTrivia() {
         userOnQuestion++;
         console.log("User on question: " + userOnQuestion);
-
+        displayEmpty();
         displayTimer();
         displayQuestion();
-        //displayAnswers();
+        displayAnswers();
         //timeUpCountdown = setTimeout(timeUp, 30 * 1000);
     }
 
+    function displayEmpty() {
+        $dTimerCol.empty();
+        $dQuestionCol.empty();
+        $dAnswerCol.empty();
+    }
+
     function displayTimer() {
-        $dTimerCol.append($dTimer)
+        console.log("Timer Displayed");
+        $dTimerCol.append($dTimer);
         $dTimer.text(30);
         timer = 30;
         timerCountdown = setInterval(startCountdown, 1000);
@@ -202,14 +212,21 @@ $(document).ready(function() {
     }
 
     function displayQuestion () {
-        $dQuestionCol.append(dQuestion)
-        $dQuestion.text(triviaArray[userOnIndex].question);
-        console.log(triviaArray[userOnIndex].question);
+        $dQuestionCol.append($dQuestion);
+        //Question
+        //Works like this but not if userOnIndex in first index slot (var userOnIndex = userOnQuestion - 1)
+        $dQuestion.text(triviaArray[userOnQuestion - 1].question);
+        console.log(triviaArray[userOnQuestion - 1].question);
     }
 
     function displayAnswers () {
-        for(i = 0; i < triviaArray[userOnIndex].possibleAnswers.length; i++) {
-
+        //Question
+        //Repeat
+        for(i = 0; i < triviaArray[userOnQuestion - 1].possibleAnswers.length; i++) {
+            $dAnswerCol.append("<p class='dAnswer" + i + " displayAnswerButton displayButton noSelect Bold'>");
+            //Question
+            //Repeat
+            $(".displayAnswer" + i).text(triviaArray[userOnQuestion - 1].possibleAnswers[i]);
         }
     }
 
@@ -217,5 +234,7 @@ $(document).ready(function() {
 
     //====================================================
 
-    $dContentCol.on("click", $dStartButton, StartGame);
+    //Question
+    //Works like below, not if ".displayStartButton" = $dStartButton (Var from shorthand
+    $dContentCol.on("click", ".displayStartButton", StartGame);
 });
