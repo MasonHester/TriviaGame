@@ -67,15 +67,24 @@ body {
     margin: 10px 0px 20px 0px;
 }
 
-/* Static text modifiers */
+/* Text modifiers */
 
 p.displayQuestion {
     color: #1D2731;
     background: #98878F;
-    margin: 20px 20px;
+    margin: 20px;
     padding: 20px 30px;
     border: solid;
     border-color: #F5F5F5;
+}
+
+p.displayTimer {
+    color: #1D2731;
+    background: #98878F;
+    padding: 10px 5px;
+    margin: 20px;
+    border: solid;
+    border-color: #F5F5F5; 
 }
 
 /* Image modifiers */

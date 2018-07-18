@@ -132,23 +132,29 @@ $(document).ready(function() {
     //====================================================
 
     //Shortcuts
+
+    //Provides the index that coorelates with the userOnQuestion Variable
+    var userOnIndex = userOnQuestion - 1;
+
         //d shorthand for display
         //r shorthand for row
         //c shorthand for col
 
+    //Main Col
     var $dContentCol = $(".displayContentCol");
 
-    var $dRow = $("<div class='row'>");
-
-    var $dTimerLeftCol = $("<div class='col-xs-3 col-md-5'>");
-
-    var $dTimerRightCol = $("<div class='col-xs-3 col-md-5'>");
-
-    var $dTimerMainCol = $("<div class='col-xs-6 col-md-2 bold noSelect'>");
-
-    var $dTimer = $("<p class='displayTimer'>");
+    //Start and Try Again buttons
+    var $dStartButtonCol = $(".displayStartButtonCol");
 
     var $dStartButton = $(".displayStartButton");
+
+    //Timer
+    var $dTimerCol = $(".displayTimerCol");
+
+    var $dTimer = $("<p class='displayTimer bold noSelect'>");
+
+    //Question
+    var $dQuestionCol = $(".displayQuestionCol")
 
     var $dQuestion = $("<p class='displayQuestion bold'>");
 
@@ -159,7 +165,8 @@ $(document).ready(function() {
 
     function StartGame() {
         console.log("|Game Start|")
-        resetStats();        
+        $dStartButtonCol.empty();
+        resetStats();      
         displayTrivia();
     }
 
@@ -175,20 +182,16 @@ $(document).ready(function() {
     function displayTrivia() {
         userOnQuestion++;
         console.log("User on question: " + userOnQuestion);
-        $dContentCol.empty();
+
         displayTimer();
         displayQuestion();
-        displayAnswers();
-        timeUpCountdown = setTimeout(timeUp, 30 * 1000);
+        //displayAnswers();
+        //timeUpCountdown = setTimeout(timeUp, 30 * 1000);
     }
 
     function displayTimer() {
-        $dContentCol.append($dRow);
-        $dRow.append($dTimerLeftCol);
-        $dRow.append($dTimerMainCol);
-        $dTimerMainCol.append($dTimer);
+        $dTimerCol.append($dTimer)
         $dTimer.text(30);
-        $dRow.append($dTimerRightCol);
         timer = 30;
         timerCountdown = setInterval(startCountdown, 1000);
     }
@@ -199,9 +202,15 @@ $(document).ready(function() {
     }
 
     function displayQuestion () {
-        $dContentCol.append($dQuestion);
-        $dQuestion.text(triviaArray[userOnQuestion - 1].question);
-        console.log(triviaArray[userOnQuestion - 1].question);
+        $dQuestionCol.append(dQuestion)
+        $dQuestion.text(triviaArray[userOnIndex].question);
+        console.log(triviaArray[userOnIndex].question);
+    }
+
+    function displayAnswers () {
+        for(i = 0; i < triviaArray[userOnIndex].possibleAnswers.length; i++) {
+
+        }
     }
 
 
