@@ -53,7 +53,6 @@ body {
 }
 
 .contentCol {
-    padding: 20px 0px;
     background: #192231;
     border: solid;
     border-color: #F5F5F5;
@@ -69,10 +68,10 @@ body {
 
 /* Text modifiers */
 
-p.displayQuestion {
+.displayPrimeText {
     color: #1D2731;
     background: #98878F;
-    margin: 20px;
+    margin: 10px 10px 20px 10px;
     padding: 20px 30px;
     border: solid;
     border-color: #F5F5F5;
@@ -82,9 +81,19 @@ p.displayTimer {
     color: #1D2731;
     background: #98878F;
     padding: 10px 5px;
-    margin: 20px;
+    margin: 10px;
     border: solid;
     border-color: #F5F5F5; 
+}
+
+p.displayFeedback {
+    color: #F5F5F5;
+    font-size: 22px;
+    margin: 10px 0px;
+}
+
+p.timeUp {
+    margin: 20px 10px 20px 10px;
 }
 
 /* Image modifiers */
@@ -93,6 +102,7 @@ p.displayTimer {
     border: solid;
     border-color: #F5F5F5;
     width: 300px;
+    margin: 0px 0px 20px 0px;
 }
 
 .finalImage {
@@ -103,7 +113,7 @@ p.displayTimer {
 
 p.displayStartButton {
     padding: 30px 20px;
-    margin: 0px;
+    margin: 20px 0px 15px 0px;
     font-size: 34px;
 }
 
@@ -121,4 +131,10 @@ p.displayButton {
 
 p.displayButton:hover {
     background: #675682;
+}
+
+/* Test */
+
+.dAnswerButton1 {
+    background: #F5F5F5;
 }
